@@ -1,0 +1,33 @@
+{% extends 'mysite/base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-around">
+        <div class="col-md-4">
+            <div class="card">
+                <h5 class="card-header">このブログについて</h5>
+                <div class="card-body">
+                    <p>ポートフォリオの内容や日常の何気ない事や備忘録をつらつら書く予定です。</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            {% for blog in blog_data %}
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">{{ blog.title}}</h2>
+                    <p class="card-text">{{ blog.content|truncatechars:100 }}</p>
+                    <div class="btn btn-warning">詳細</div>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ blog_created|date }} by {{ blog.author }}
+                </div>
+                <a href="" class="stretched-link"></a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

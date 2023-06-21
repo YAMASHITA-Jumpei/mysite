@@ -1,15 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'mysite/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Site</title>
-</head>
-
-<body>
-    <h1>Hello World</h1>
-</body>
-
-</html>
+{% block content %}
+<div class="title">
+    <img src="{{ profile_data.topimage.url}}" alt="">
+    <h2 class="site-title">YAMASHITA Jumpei PORTFOLIO SITE</h2>
+</div>
+<div class="container">
+    <div class="row">
+        {% for work in work_data %}
+        <div class="col-md-3 mx-auto">
+            <div class="card work-thumbnail">
+                {% if work.thumbnail %}
+                <img src="{{work.thumbnail.url }}" alt="" class="work-img img-fluid">
+                {% else %}
+                <img src="{{ work.image.url }}" alt="" class="work-img img-fluid">
+                {% endif %}
+                <div class="work-title text-center">
+                    <p>
+                        {{ work.title }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
