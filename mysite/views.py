@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from .models import Profile, Work, Blog
+from .forms import BlogForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class IndexView(View):
@@ -29,3 +31,68 @@ class BlogDetailView(View):
         return render(request, 'mysite/blog_detail.html', {
             'blog_data': blog_data
         })
+
+
+class CreateBlogView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        form = BlogForm(request.POST or None)
+        return render(request, 'mysite/blog_post.html', {
+            'form': form
+        })
+
+    def post(self, request, *args, **kwargs):
+        form = BlogForm(request.POST or None)
+
+        if form.is_valid():
+            blog_data = Blog()
+            blog_data.author = request.user
+            blog_data.title = form.cleaned_data['title']
+            blog_data.content = form.cleaned_data['content']
+            blog_data.save()
+            return redirect('mysite:blog_detail', blog_data.id)
+
+        return render(request, 'mysite/blog_post.html', {
+            'form': form
+        })
+
+
+class BlogEditView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        blog_data = Blog.objects.get(id=self.kwargs['pk'])
+        form = BlogForm(
+            request.POST or None,
+            initial={
+                'title': blog_data.title,
+                'content': blog_data.content
+            }
+        )
+        return render(request, 'mysite/blog_post.html', {
+            'form': form
+        })
+
+    def post(self, request, *args, **kwargs):
+        form = BlogForm(request.POST or None)
+
+        if form.is_valid():
+            blog_data = Blog.objects.get(id=self.kwargs['pk'])
+            blog_data.title = form.cleaned_data['title']
+            blog_data.content = form.cleaned_data['content']
+            blog_data.save()
+            return redirect('mysite:blog_detail', self.kwargs['pk'])
+
+        return render(request, 'mysite/blog_post.html', {
+            'form': form
+        })
+
+
+class BlogDeleteView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        blog_data = Blog.objects.get(id=self.kwargs['pk'])
+        return render(request, 'mysite/blog_delete.html', {
+            'blog_data': blog_data,
+        })
+
+    def post(self, request, *args, **kwargs):
+        blog_data = Blog.objects.get(id=self.kwargs['pk'])
+        blog_data.delete()
+        return redirect('mysite:blog')

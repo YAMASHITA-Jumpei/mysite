@@ -11,6 +11,12 @@
                     <p>ポートフォリオの内容や日常の何気ない事や備忘録をつらつら書く予定です。</p>
                 </div>
             </div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'mysite:blog_new' %}" class="btn btn-warning">投稿する</a>
+            <a href="{% url 'accounts:account_logout' %}" class="btn btn-danger">ログアウト</a>
+            {% else %}
+            <a href="{% url 'accounts:account_login' %}" class="btn btn-secondary">ログイン</a>
+            {% endif %}
         </div>
         <div class="col-md-6">
             {% for blog in blog_data %}
@@ -23,7 +29,7 @@
                 <div class="card-footer text-muted">
                     {{ blog_created|date }} by {{ blog.author }}
                 </div>
-                <a href="" class="stretched-link"></a>
+                <a href="{% url 'mysite:blog_detail' blog.id %}" class="stretched-link"></a>
             </div>
             {% endfor %}
         </div>
