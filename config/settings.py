@@ -142,6 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ['http://jumpeiyamashita.pythonanywhere.com/']
 
 SECRET_KEY = get_random_secret_key()
 
