@@ -10,4 +10,5 @@ urlpatterns = [
     path('blog/new/', views.CreateBlogView.as_view(), name='blog_new'),
     path('blog/<int:pk>/edit/', views.BlogEditView.as_view(), name='blog_edit'),
     path('blog/<int:pk>/delete/', views.BlogDeleteView.as_view(), name='blog_delete'),
+    path('about/', views.AboutView.as_view(), name='about')
 ]

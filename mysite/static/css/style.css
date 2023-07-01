@@ -124,3 +124,12 @@ footer {
 .form-control:focus {
     box-shadow: none;
 }
+
+.avatar img {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.icon {
+    padding: 20px 16px;
+}

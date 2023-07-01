@@ -1,0 +1,60 @@
+{% extends 'mysite/base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <h3 class="mb-4">Profile</h3>
+    <div class="mb-5">
+        <div class="row">
+            <div class="col-md-8">
+                <p>{{ profile_data.introduction|linebreaksbr }}</p>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center px-5 py-4">
+                    <div class="avatar mb-3">
+                        <img src="{{ profile_data.subimage.url }}" alt="" class="card-img-top rounded-circle">
+                    </div>
+                    <h5 class="font-weight-bolder">{{ profile_data.name }}</h5>
+                    <p class="mb-3 small text-center">{{ profile_data.title}}</p>
+                    <div class="d-flex justify-content-center">
+                        {% if profile_data.github %}
+                        <a href="{{profile_data.github}}" target="_blank">
+                            <i class="fa-brands fa-github fa-lg rounded btn-dark icon"></i></a>
+                        {% endif %}
+                        {% if profile_data.twitter %}
+                        <a href="{{profile_data.twitter}}" target="_blank">
+                            <i class="fa-brands fa-twitter fa-lg rounded btn-primary icon"></i></a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="h3 mb-4">Experience</div>
+    <div class="mb-5">
+        {% for experience in experience_data %}
+        <div class="d-flex justify-content-between">
+            <h5>{{ experience.company }}<span class="small text-secondary"> - {{ experience.occupation }}</span></h5>
+            <p class="mb-1">{{ experience.period }}</p>
+        </div>
+        <p class="mb-1">{{ experience.description|linebreaksbr }}</p>
+        <p>{{ experience.place }}</p>
+        <hr>
+        {% endfor %}
+    </div>
+    <div class="h3 mb-4">Education</div>
+    <div class="mb-5">
+        {% for education in education_data %}
+        <div class="d-flex justify-content-between">
+            <h5>{{ education.school }}<span class="small text-secondary"> - {{ education.course }}</span></h5>
+            <p class="mb-1">{{ education.period }}</p>
+        </div>
+        <p>{{ education.place }}</p>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

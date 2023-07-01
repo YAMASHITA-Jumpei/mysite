@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from .models import Profile, Work, Blog
+from .models import Profile, Work, Blog, Education, Experience
 from .forms import BlogForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -96,3 +96,17 @@ class BlogDeleteView(LoginRequiredMixin, View):
         blog_data = Blog.objects.get(id=self.kwargs['pk'])
         blog_data.delete()
         return redirect('mysite:blog')
+
+
+class AboutView(View):
+    def get(self, request, *args, **kwargs):
+        profile_data = Profile.objects.all()
+        if profile_data.exists():
+            profile_data = profile_data.order_by('-id')[0]
+        experience_data = Experience.objects.order_by('id')
+        education_data = Education.objects.order_by('id')
+        return render(request, 'mysite/about.html', {
+                      'profile_data': profile_data,
+                      'experience_data': experience_data,
+                      'education_data': education_data,
+                      })
