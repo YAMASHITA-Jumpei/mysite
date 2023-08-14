@@ -1,0 +1,25 @@
+{% extends 'mysite/base.html' %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">アップロード</button>
+</form>
+<hr>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-primary" role="alert">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+<form action="{% url 'summary:txt' %}">
+    {% csrf_token %}
+    <div>
+        <button class="btn" type="submit">Download</button>
+    </div>
+</form>
+{% endblock content %}

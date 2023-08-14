@@ -20,6 +20,11 @@ header {
     margin-right: 8vw;
 }
 
+.site-title {
+    font-weight: lighter;
+    /* font-family: sans-serif; */
+}
+
 .nav-logo {
     margin: 1vw;
     display: flex;

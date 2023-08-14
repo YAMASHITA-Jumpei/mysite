@@ -7,22 +7,36 @@
 </div>
 <div class="container">
     <div class="row">
-        {% for work in work_data %}
-        <div class="col-md-3 mx-auto">
-            <div class="card work-thumbnail">
-                {% if work.thumbnail %}
-                <img src="{{work.thumbnail.url }}" alt="" class="work-img img-fluid">
-                {% else %}
-                <img src="{{ work.image.url }}" alt="" class="work-img img-fluid">
-                {% endif %}
-                <div class="work-title text-center">
-                    <p>
-                        {{ work.title }}
-                    </p>
+        <div class="col-md-4">
+            <div class="card">
+                <h5 class="card-header text-center">文字起こし</h5>
+                <div class="card-body">
+                    <p>音源（mp3）を自動で文字起こしします</p>
+                    <div class="btn btn-primary">詳細</div>
                 </div>
+                <a href="{% url 'summary:index' %}" class="stretched-link"></a>
             </div>
         </div>
-        {% endfor %}
+        <div class="col-md-4">
+            <div class="card">
+                <h5 class="card-header text-center">Amazonスクレイピング</h5>
+                <div class="card-body">
+                    <p>準備中</p>
+                    <div class="btn btn-primary">詳細</div>
+                </div>
+                <a href="#" class="stretched-link"></a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <h5 class="card-header text-center">Makuakeスクレイピング</h5>
+                <div class="card-body">
+                    <p>準備中</p>
+                    <div class="btn btn-primary">詳細</div>
+                </div>
+                <a href="#" class="stretched-link"></a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}
